@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader2 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -13,8 +14,10 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { useSignUp } from "./useSignUp";
 
 const SignupForm = () => {
+  const { signUp, isPending } = useSignUp();
   const form = useForm<SignUpFormData>({
     resolver: zodResolver(signUpSchema),
     defaultValues: {
@@ -26,6 +29,11 @@ const SignupForm = () => {
   });
 
   const onSubmit = (data: SignUpFormData) => {
+    const { fullName, email, password, picture } = data;
+    signUp(
+      { fullName, email, password, picture },
+      { onSettled: () => form.reset() }
+    );
     console.log("Form Data:", data);
   };
 
@@ -125,8 +133,14 @@ const SignupForm = () => {
               )}
             />
           </div>
-          <Button type="submit" className="w-full">
-            Sign In
+          <Button type="submit" className="w-full" disabled={isPending}>
+            {isPending ? (
+              <>
+                <Loader2 className="animate-spin" /> Connexion
+              </>
+            ) : (
+              "Sign In"
+            )}
           </Button>
         </div>
         <div className="text-center text-sm">
