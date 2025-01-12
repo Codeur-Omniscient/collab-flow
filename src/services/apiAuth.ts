@@ -65,5 +65,11 @@ export async function handleLogIn(email: string, password: string) {
 
   if (error) throw new Error(error.message);
 
-  return { data };
+  const user = await supabase
+    .from("users")
+    .select()
+    .eq("id", data.user.id)
+    .single();
+
+  return { user };
 }

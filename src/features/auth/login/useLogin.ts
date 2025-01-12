@@ -1,4 +1,5 @@
 import { handleLogIn } from "@/services/apiAuth";
+import { useAuthStore } from "@/stores/auth/authStore";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -6,14 +7,21 @@ import { useNavigate } from "react-router-dom";
 export function useLogin() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+  const { setUser } = useAuthStore();
 
   const { mutate: logIn, isPending } = useMutation({
     mutationFn: ({ email, password }: { email: string; password: string }) =>
       handleLogIn(email, password),
-    onSuccess: ({ data }) => {
-      queryClient.setQueryData(["user"], data.user);
+    onSuccess: ({ user }) => {
+      queryClient.setQueryData(["user"], user.data);
+
+      if (user.data) {
+        setUser(user.data);
+      } else {
+        toast.error("User data is null");
+      }
       toast.success("Log in successful! Welcome back.");
-      console.log(data);
+      console.log(user);
       navigate("/dashboard", { replace: true });
     },
     onError: (error) => {

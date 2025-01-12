@@ -7,6 +7,7 @@ import AppLayout from "./pages/AppLayout";
 import Dashboard from "./pages/Dashboard";
 import LogIn from "./pages/LogIn";
 import SignUp from "./pages/SignUp";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   const queryClient = new QueryClient({
@@ -22,7 +23,13 @@ function App() {
       <ReactQueryDevtools initialIsOpen={false} />
       <BrowserRouter>
         <Routes>
-          <Route element={<AppLayout />}>
+          <Route
+            element={
+              <ProtectedRoute>
+                <AppLayout />
+              </ProtectedRoute>
+            }
+          >
             <Route index element={<Navigate replace to="dashboard" />} />
             <Route path="dashboard" element={<Dashboard />} />
           </Route>
