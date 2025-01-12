@@ -1,6 +1,6 @@
 import SignupForm from "@/features/auth/signup/SignupForm";
 import logo from "../assets/logo.svg";
-import signupBanner from "../assets/signup-banner.jpg";
+import signupBanner from "../assets/signup-banner.webp";
 
 const SignUp = () => {
   return (
