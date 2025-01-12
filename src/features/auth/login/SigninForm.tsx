@@ -14,12 +14,14 @@ import { EyeIcon, EyeOffIcon, Loader2 } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { useLogin } from "./useLogin";
 
 const SigninForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const togglePasswordVisibility = () => setShowPassword(!showPassword);
 
-  const isPending = false;
+  const { logIn, isPending } = useLogin();
+
   const form = useForm<SignInFormData>({
     resolver: zodResolver(signInSchema),
     defaultValues: {
@@ -29,6 +31,8 @@ const SigninForm = () => {
   });
 
   const onSubmit = (data: SignInFormData) => {
+    const { email, password } = data;
+    logIn({ email, password }, { onSettled: () => form.reset() });
     console.log(data);
   };
   return (
