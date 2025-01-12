@@ -4,7 +4,7 @@ export interface User {
   email: string;
   full_name: string | null;
   avatar_url: string | null;
-  created_at: string;
+  created_at: string | null;
 }
 
 export interface Project {
