@@ -13,7 +13,7 @@ export function useSignUp() {
       toast.success("Sign up successful! Please log in to continue.");
       setUser(user);
       console.log(user);
-      navigate("/dashboard");
+      navigate("/");
     },
     onError: (error) => {
       toast.error(error.message);

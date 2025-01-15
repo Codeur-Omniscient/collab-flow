@@ -22,7 +22,7 @@ export function useLogin() {
       }
       toast.success("Log in successful! Welcome back.");
       console.log(user);
-      navigate("/dashboard", { replace: true });
+      navigate("/", { replace: true });
     },
     onError: (error) => {
       toast.error(error.message);
