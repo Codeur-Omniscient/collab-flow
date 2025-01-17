@@ -8,12 +8,12 @@ export interface User {
 }
 
 export interface Project {
-  id: string;
+  id?: string;
   name: string;
   description: string | null;
-  status: "active" | "archived";
+  status: "active" | "inactive" | "completed";
   admin_id: string;
-  created_at: string;
+  created_at?: string;
 }
 
 export interface ProjectMember {
