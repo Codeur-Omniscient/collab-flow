@@ -29,3 +29,16 @@ export async function createProjectApi(project: Project) {
 
   return { data };
 }
+
+export async function updateProjectApi(project: Project) {
+  if (!project.id) throw new Error("Project ID is required for update");
+
+  const { data, error } = await supabase
+    .from("projects")
+    .update({ ...project })
+    .eq("id", project.id);
+
+  if (error) throw new Error("Failed to update a project");
+
+  return { data };
+}
