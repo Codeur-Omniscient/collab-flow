@@ -23,7 +23,7 @@ export const signInSchema = z.object({
 export const projectSchema = z.object({
   name: z.string().min(1, "Project Name is required"),
   description: z.string().min(1, "Description is required"),
-  status: z.enum(["active", "inactive", "completed"]),
+  status: z.string(),
 });
 
 export type SignInFormData = z.infer<typeof signInSchema>;
