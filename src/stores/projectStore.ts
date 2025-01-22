@@ -1,13 +1,12 @@
+import { Project } from "@/types";
 import { create } from "zustand";
 
 interface ProjectStore {
-  formOpen: boolean;
-  isOpen: () => void;
-  onClose: () => void;
+  project: Project;
+  setProject: (project: Project) => void;
 }
 
 export const useProjectStore = create<ProjectStore>()((set) => ({
-  formOpen: false,
-  isOpen: () => set({ formOpen: true }),
-  onClose: () => set({ formOpen: false }),
+  project: {} as Project,
+  setProject: (project) => set({ project }),
 }));
