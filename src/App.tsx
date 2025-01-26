@@ -1,4 +1,4 @@
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
@@ -7,6 +7,9 @@ import AppLayout from "./pages/AppLayout";
 import Dashboard from "./pages/Dashboard";
 import LogIn from "./pages/LogIn";
 import SignUp from "./pages/SignUp";
+import Invitation from "./pages/Invitation";
+import Projects from "./pages/Projects";
+import Project from "./pages/Project";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
@@ -30,8 +33,10 @@ function App() {
               </ProtectedRoute>
             }
           >
-            <Route index element={<Navigate replace to="dashboard" />} />
-            <Route path="dashboard" element={<Dashboard />} />
+            <Route index element={<Dashboard />} />
+            <Route path="project" element={<Projects />} />
+            <Route path="project/:projectId" element={<Project />} />
+            <Route path="invitation" element={<Invitation />} />
           </Route>
           <Route path="login" element={<LogIn />} />
           <Route path="signup" element={<SignUp />} />
