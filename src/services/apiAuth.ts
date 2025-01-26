@@ -54,7 +54,9 @@ export async function handleSignUp({
     throw new Error(insertError.message);
   }
 
-  return { user };
+  if (!authData.session) throw new Error("Authentication session not found");
+
+  return { user, sessionUser: authData.session.user };
 }
 
 export async function handleLogIn(email: string, password: string) {
@@ -71,5 +73,25 @@ export async function handleLogIn(email: string, password: string) {
     .eq("id", data.user.id)
     .single();
 
-  return { user };
+  return { user, sessionUser: data.session.user };
+}
+
+export async function getCurrentUserApi() {
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  if (!session) return null;
+
+  const { data, error } = await supabase.auth.getUser();
+
+  if (error) throw new Error(error.message);
+
+  const { data: user } = await supabase
+    .from("users")
+    .select()
+    .eq("id", data.user.id)
+    .single();
+
+  return { user, sessionUser: data.user };
 }

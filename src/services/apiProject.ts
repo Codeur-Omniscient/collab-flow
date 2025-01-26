@@ -1,8 +1,11 @@
 import { Project } from "@/types";
 import supabase from "./supabase";
 
-export async function getAllProjectApi() {
-  const { data: projects, error } = await supabase.from("projects").select("*");
+export async function getAllProjectApi(userId: string) {
+  const { data: projects, error } = await supabase
+    .from("projects")
+    .select("*")
+    .eq("admin_id", userId);
 
   if (error) throw new Error("Failed to get projects");
 
@@ -41,4 +44,12 @@ export async function updateProjectApi(project: Project) {
   if (error) throw new Error("Failed to update a project");
 
   return { data };
+}
+
+export async function deleteProjectApi(id: string) {
+  const { error } = await supabase.from("projects").delete().eq("id", id);
+
+  if (error) throw new Error("Failed to delete a project");
+
+  return { id };
 }
