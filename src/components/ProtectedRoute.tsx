@@ -1,15 +1,26 @@
+import { useUser } from "@/features/auth/useUser";
 import { useAuthStore } from "@/stores/auth/authStore";
-import React from "react";
-import { Navigate, useLocation } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-  const user = useAuthStore((state) => state.user);
-  const location = useLocation();
+  const { isAuthenticated, isLoading, user } = useUser();
+  const navigate = useNavigate();
+  const setUser = useAuthStore((state) => state.setUser);
 
-  if (!user) {
-    return <Navigate to="/login" state={{ from: location }} replace />;
+  useEffect(() => {
+    if (!isLoading && !isAuthenticated) {
+      navigate("/login");
+    }
+  }, [isLoading, isAuthenticated, navigate]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
   }
-  return children;
+  if (user) {
+    setUser(user);
+  }
+  if (isAuthenticated) return children;
 };
 
 export default ProtectedRoute;
