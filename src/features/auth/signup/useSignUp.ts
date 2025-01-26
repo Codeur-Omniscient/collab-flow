@@ -5,12 +5,12 @@ import { useNavigate } from "react-router-dom";
 
 export function useSignUp() {
   const navigate = useNavigate();
+
   const { mutate: signUp, isPending } = useMutation({
     mutationFn: handleSignUp,
-    onSuccess: ({ user }) => {
+    onSuccess: () => {
       toast.success("Sign up successful! Please log in to continue.");
-      console.log(user);
-      navigate("/dashboard");
+      navigate("/");
     },
     onError: (error) => {
       toast.error(error.message);

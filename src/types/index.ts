@@ -4,21 +4,21 @@ export interface User {
   email: string;
   full_name: string | null;
   avatar_url: string | null;
-  created_at: string;
+  created_at: string | null;
 }
 
 export interface Project {
-  id: string;
+  id?: string;
   name: string;
   description: string | null;
-  status: "active" | "archived";
+  status: string;
   admin_id: string;
-  created_at: string;
+  created_at?: string | null;
 }
 
 export interface ProjectMember {
   project_id: string;
   user_id: string;
-  role: "admin" | "member";
+  role: string;
   invitation_status: "pending" | "accepted" | "rejected";
 }

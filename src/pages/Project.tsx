@@ -1,5 +1,7 @@
+import ProjectDetails from "@/features/projects/ProjectDetails";
+
 const Project = () => {
-  return <div>Project</div>;
+  return <ProjectDetails />;
 };
 
 export default Project;
