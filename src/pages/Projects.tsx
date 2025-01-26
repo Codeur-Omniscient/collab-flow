@@ -1,10 +1,11 @@
 import { Button } from "@/components/ui/button";
-import ProjectForm from "@/features/projects/ProjectForm";
+import ProjectAddForm from "@/features/projects/ProjectAddForm";
+import ProjectEditForm from "@/features/projects/ProjectEditForm";
 import ProjectList from "@/features/projects/ProjectList";
-import { useProjectStore } from "@/stores/projectStore";
+import { useFormStore } from "@/stores/formStore";
 
 const Projects = () => {
-  const { formOpen, isOpen } = useProjectStore();
+  const { formOpen, isOpen } = useFormStore();
   console.log(formOpen);
   return (
     <div className="space-y-5 p-4">
@@ -25,7 +26,8 @@ const Projects = () => {
         <div className="aspect-video rounded-xl bg-muted/50" />
         <div className="aspect-video rounded-xl bg-muted/50" />
       </div> */}
-      <ProjectForm />
+      <ProjectAddForm />
+      <ProjectEditForm />
     </div>
   );
 };
