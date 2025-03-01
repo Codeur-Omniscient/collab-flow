@@ -67,7 +67,6 @@ const ProjectEditForm = () => {
         },
       },
     );
-    console.log(data);
   };
   return (
     <Dialog
