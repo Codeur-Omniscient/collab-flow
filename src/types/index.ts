@@ -20,5 +20,23 @@ export interface ProjectMember {
   project_id: string;
   user_id: string;
   role: string;
-  invitation_status: "pending" | "accepted" | "rejected";
+  invitation_status: string; //"pending" | "accepted" | "rejected";
+}
+
+export interface Invitation {
+  projectId: string;
+  userId: string;
+  role: string;
+  invitation_status: string; //"pending" | "accepted" | "rejected";
+}
+
+export interface Notification {
+  id: string;
+  userId: string;
+  type: "project_invite" | "invite_accepted";
+  content: string;
+  projectId: string;
+  senderId: string;
+  isRead: boolean;
+  createdAt?: Date;
 }

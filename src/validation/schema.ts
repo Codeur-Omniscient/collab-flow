@@ -26,6 +26,11 @@ export const projectSchema = z.object({
   status: z.string(),
 });
 
+export const inviteSchema = z.object({
+  email: z.string().email("invalid email address"),
+});
+
 export type SignInFormData = z.infer<typeof signInSchema>;
 export type SignUpFormData = z.infer<typeof signUpSchema>;
 export type ProjectFormData = z.infer<typeof projectSchema>;
+export type InviteFormData = z.infer<typeof inviteSchema>;

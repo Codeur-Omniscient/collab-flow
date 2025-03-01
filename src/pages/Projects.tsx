@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import NotificationList from "@/features/notifications/NotificationList";
 import ProjectAddForm from "@/features/projects/ProjectAddForm";
 import ProjectEditForm from "@/features/projects/ProjectEditForm";
 import ProjectList from "@/features/projects/ProjectList";
@@ -28,6 +29,7 @@ const Projects = () => {
       </div> */}
       <ProjectAddForm />
       <ProjectEditForm />
+      <NotificationList />
     </div>
   );
 };

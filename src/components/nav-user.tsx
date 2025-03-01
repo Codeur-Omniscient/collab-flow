@@ -25,17 +25,13 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
+import { useAuthStore } from "@/stores/auth/authStore";
 
-export function NavUser({
-  user,
-}: Readonly<{
-  user: {
-    name: string;
-    email: string;
-    avatar: string;
-  };
-}>) {
+export function NavUser() {
   const { isMobile } = useSidebar();
+  const user = useAuthStore((state) => state.user);
+
+  if (!user) return null;
 
   return (
     <SidebarMenu>
@@ -46,12 +42,16 @@ export function NavUser({
               size="lg"
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
-              <Avatar className="h-8 w-8 rounded-lg">
-                <AvatarImage src={user.avatar} alt={user.name} />
+              <Avatar className="h-10 w-10 rounded-full">
+                <AvatarImage
+                  src={user?.avatar_url ?? undefined}
+                  alt={user.full_name ?? undefined}
+                  className="object-cover"
+                />
                 <AvatarFallback className="rounded-lg">CN</AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-semibold">{user.name}</span>
+                <span className="truncate font-semibold">{user.full_name}</span>
                 <span className="truncate text-xs">{user.email}</span>
               </div>
               <ChevronsUpDown className="ml-auto size-4" />
@@ -65,12 +65,18 @@ export function NavUser({
           >
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-                <Avatar className="h-8 w-8 rounded-lg">
-                  <AvatarImage src={user.avatar} alt={user.name} />
-                  <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                <Avatar className="h-10 w-10 rounded-full">
+                  <AvatarImage
+                    src={user.avatar_url ?? undefined}
+                    alt={user.full_name ?? undefined}
+                    className="object-cover"
+                  />
+                  <AvatarFallback className="rounded-full">CN</AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-semibold">{user.name}</span>
+                  <span className="truncate font-semibold">
+                    {user.full_name}
+                  </span>
                   <span className="truncate text-xs">{user.email}</span>
                 </div>
               </div>
