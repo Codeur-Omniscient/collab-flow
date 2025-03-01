@@ -1,7 +1,10 @@
+import { Button } from "@/components/ui/button";
 import { useProject } from "./useProject";
+import { useFormStore } from "@/stores/formStore";
 
 const ProjectDetails = () => {
   const { isGetting, project } = useProject();
+  const onInvitationOpen = useFormStore((state) => state.isInviteOpen);
   if (isGetting) return <div>Loading...</div>;
   if (!project) return <div>Not found</div>;
   const { name, description, status } = project;
@@ -11,6 +14,9 @@ const ProjectDetails = () => {
       <h3>{name}</h3>
       <span>{status}</span>
       <p>{description}</p>
+      <Button type="button" onClick={onInvitationOpen}>
+        +
+      </Button>
     </div>
   );
 };
