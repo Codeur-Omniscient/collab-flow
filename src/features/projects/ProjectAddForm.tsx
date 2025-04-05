@@ -139,9 +139,11 @@ const ProjectAddForm = () => {
               </div>
               <DialogFooter>
                 <DialogClose>
-                  <Button type="button" variant="secondary">
-                    Close
-                  </Button>
+                  <div>
+                    <Button type="button" variant="secondary">
+                      Close
+                    </Button>
+                  </div>
                 </DialogClose>
                 <div>
                   <Button type="submit" disabled={isCreating}>
