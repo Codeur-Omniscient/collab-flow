@@ -1,11 +1,11 @@
-import InvitationForm from "@/features/invitations/InvitationForm";
+import AddUserForm from "@/features/projects/AddUserFrom";
 import ProjectDetails from "@/features/projects/ProjectDetails";
 
 const Project = () => {
   return (
     <div>
       <ProjectDetails />;
-      <InvitationForm />
+      <AddUserForm />
     </div>
   );
 };
