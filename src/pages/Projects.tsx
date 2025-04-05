@@ -29,7 +29,7 @@ const Projects = () => {
       </div> */}
       <ProjectAddForm />
       <ProjectEditForm />
-      <NotificationList />
+      {/* <NotificationList /> */}
     </div>
   );
 };

@@ -53,3 +53,43 @@ export async function deleteProjectApi(id: string) {
 
   return { id };
 }
+
+export async function addUserOnProjectApi(projectId: string, email: string) {
+  // Vérifier si l'utilisateur existe
+  const { data: user, error: userError } = await supabase
+    .from("users")
+    .select("*")
+    .eq("email", email)
+    .single();
+
+  if (!user || userError) {
+    throw new Error("User not found");
+  }
+
+  // Vérifier s'il est déjà membre
+
+  const { data: existingMember, error: projectError } = await supabase
+    .from("project_members")
+    .select("*")
+    .eq("project_id", projectId)
+    .eq("user_id", user.id)
+    .single();
+
+  if (projectError) {
+    console.log(projectError.message);
+  }
+
+  if (existingMember) {
+    throw new Error("Utilisateur déjà membre du projet");
+  }
+
+  // Insérer l'utilisateur
+
+  const { error: insertError } = await supabase.from("project_members").insert({
+    project_id: projectId,
+    user_id: user.id,
+    role: "collaborateur",
+  });
+
+  if (insertError) throw new Error("Failed to add user on project");
+}
